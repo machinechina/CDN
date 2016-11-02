@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDN.Infrastructure", "CDN.I
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDN.ConsoleApp", "CDN.ConsoleApp\CDN.ConsoleApp.csproj", "{07386501-CFD3-47AA-BCB5-EBF89B1BA29F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDN.Test.Standalone", "CDN.Test.Standalone\CDN.Test.Standalone.csproj", "{163CF72C-8FD3-4FCE-911F-560B8730A2C5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,32 +47,12 @@ Global
 		{07386501-CFD3-47AA-BCB5-EBF89B1BA29F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07386501-CFD3-47AA-BCB5-EBF89B1BA29F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07386501-CFD3-47AA-BCB5-EBF89B1BA29F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 7
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://dev.istudy.sh.cn:8080/tfs/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = CDN.FilePuller\\CDN.FilePuller.csproj
-		SccProjectName1 = CDN.FilePuller
-		SccLocalPath1 = CDN.FilePuller
-		SccProjectUniqueName2 = CDN.FileServer\\CDN.FileServer.csproj
-		SccProjectName2 = CDN.FileServer
-		SccLocalPath2 = CDN.FileServer
-		SccProjectUniqueName3 = CDN.FileEnqueuer\\CDN.FileEnqueuer.csproj
-		SccProjectName3 = CDN.FileEnqueuer
-		SccLocalPath3 = CDN.FileEnqueuer
-		SccProjectUniqueName4 = CDN.Test\\CDN.Test.csproj
-		SccProjectName4 = CDN.Test
-		SccLocalPath4 = CDN.Test
-		SccProjectUniqueName5 = CDN.Infrastructure\\CDN.Infrastructure.csproj
-		SccProjectName5 = CDN.Infrastructure
-		SccLocalPath5 = CDN.Infrastructure
-		SccProjectUniqueName6 = CDN.ConsoleApp\\CDN.ConsoleApp.csproj
-		SccProjectName6 = CDN.ConsoleApp
-		SccLocalPath6 = CDN.ConsoleApp
 	EndGlobalSection
 EndGlobal
