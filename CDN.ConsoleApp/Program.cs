@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -9,32 +8,12 @@ using CDN.Infrastructure;
 using CDN.Workers;
 using DiskQueue;
 using SEOP.Framework.Config;
-using SEOP.Framework.Infrastructure;
 using static CDN.Infrastructure.ApplicationHelper;
 
 namespace CDN.ConsoleApp
 {
     internal class Program
     {
-        private static String _fileStorePath = Configuration.GetAppConfig("FileStorePath");
-
-        private static Boolean _fileServer_Enabled = Configuration.GetAppConfig<Boolean>("FileServer_Enabled");
-        private static int _fileServer_Port = Configuration.GetAppConfig<int>("FileServer_Port");
-
-        private static Boolean _fileEnqueuer_Enabled = Configuration.GetAppConfig<Boolean>("FileEnqueuer_Enabled");
-        private static Int32 _fileEnqueuer_Interval = Configuration.GetAppConfig<Int32>("FileEnqueuer_Interval");
-        private static String _fileEnqueuer_SyncApi = Configuration.GetAppConfig("FileEnqueuer_SyncApi");
-
-        private static Boolean _filePuller_Enabled = Configuration.GetAppConfig<Boolean>("FilePuller_Enabled");
-        private static Int32 _filePuller_DownloadTimeout = Configuration.GetAppConfig<Int32>("FilePuller_DownloadTimeout");
-        private static Int32 _filePuller_Interval = Configuration.GetAppConfig<Int32>("FilePuller_Interval");
-        private static Int32 _filePuller_RetryTimes = Configuration.GetAppConfig<Int32>("FilePuller_RetryTimes");
-
-        private static Int32 _filePuller_DownloadThreadCount =
-        Configuration.GetAppConfig<Int32>("FilePuller_DownloadThreadCount");
-
-        private static Int32 _updateInterval = Configuration.GetAppConfig<Int32>("UpdateInterval");
-
         private static Mutex mutex = new Mutex(true, "{2d6af9a7-3c13-4ea4-84f9-7229c7d426c4}");
 
         private static void Main(string[] args)
@@ -44,10 +23,32 @@ namespace CDN.ConsoleApp
 
             try
             {
-                ApplicationHelper.CheckSingleRunning(mutex);
-                ApplicationHelper.InitDeployQueryString();
                 Info($"CDN Starting... Version : {ApplicationHelper.Version}");
-                Info($"API_PARAMS:{GetDeployQueryString("SyncApiParam")}");
+                ApplicationHelper.CheckSingleRunning(mutex);
+                ApplicationHelper.InitDeployQueryString("SyncApiParam");
+
+                #region Get Configs From url or app.config
+
+                String _fileStorePath = GetConfigFromDeployThenAppConfig<String>("FileStorePath");
+
+                Boolean _fileServer_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FileServer_Enabled");
+                int _fileServer_Port = GetConfigFromDeployThenAppConfig<int>("FileServer_Port");
+
+                Boolean _fileEnqueuer_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FileEnqueuer_Enabled");
+                Int32 _fileEnqueuer_Interval = GetConfigFromDeployThenAppConfig<Int32>("FileEnqueuer_Interval");
+                String _fileEnqueuer_SyncApi = GetConfigFromDeployThenAppConfig<String>("FileEnqueuer_SyncApi");
+
+                Boolean _filePuller_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FilePuller_Enabled");
+                Int32 _filePuller_DownloadTimeout = GetConfigFromDeployThenAppConfig<Int32>("FilePuller_DownloadTimeout");
+                Int32 _filePuller_Interval = GetConfigFromDeployThenAppConfig<Int32>("FilePuller_Interval");
+                Int32 _filePuller_RetryTimes = GetConfigFromDeployThenAppConfig<Int32>("FilePuller_RetryTimes");
+
+                Int32 _filePuller_DownloadThreadCount =
+               GetConfigFromDeployThenAppConfig<Int32>("FilePuller_DownloadThreadCount");
+
+                Int32 _updateInterval = GetConfigFromDeployThenAppConfig<Int32>("UpdateInterval");
+
+                #endregion Get Configs From url or app.config
 
                 var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueue"));
 
@@ -103,6 +104,10 @@ namespace CDN.ConsoleApp
                     Application.Restart();
                 }
             }
+        }
+
+        private static void InitConfigs()
+        {
         }
     }
 }
