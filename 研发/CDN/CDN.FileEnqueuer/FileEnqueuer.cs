@@ -29,13 +29,13 @@ namespace CDN.Workers
             Info("Begin searching file list...");
             HttpClient client = new HttpClient();
             String syncUrl = null;
-
+            var syncUrlParams = GetDeployQueryString("SyncApiParam");
             try
             {
                 //find file store path & get last sync time
                 //pass extra params from DEPLOY URL
                 var lastSyncTime = File.GetLastWriteTime(Path.Combine(_fileStorePath, "_SyncStamp")).ToString();
-                syncUrl = String.Format(_syncApi, new[] { lastSyncTime }.Concat(GetDeployQueryString("SyncApiParam").Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToArray());
+                syncUrl = String.Format(_syncApi, new[] { lastSyncTime }.Concat(syncUrlParams.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToArray());
 
 
                 //call api to get file list
@@ -68,7 +68,7 @@ namespace CDN.Workers
             {
                 if (syncUrl == null)
                 {
-                    var msg = $"Error parsing url: {_syncApi} from params {GetDeployQueryString("SyncApiParam")}";
+                    var msg = $"Error parsing url: {_syncApi} with params {syncUrlParams}";
                     Info(msg);
                     throw new Exception(msg, ex);
                 }
