@@ -15,7 +15,7 @@ namespace CDN.Test
     public class FilePullerTest
     {
         [TestMethod]
-        public void Enque_remote_file_and_download()
+        public void Enque_remote_files_and_download()
         {
             var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueueTest"));
             using (var session = queue.OpenSession())
@@ -47,7 +47,7 @@ namespace CDN.Test
         }
 
         [TestMethod]
-        public void Enque_some_file_and_download()
+        public void Enque_some_files_and_download()
         {
             var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueueTest"));
 
@@ -77,7 +77,7 @@ namespace CDN.Test
         }
 
         [TestMethod]
-        public void Enque_some_file_and_download_multiThread()
+        public void Enque_some_files_and_download_multiThread()
         {
             var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueue"));
 
@@ -94,6 +94,32 @@ namespace CDN.Test
                 foreach (var file in Directory.GetFiles(@"D:\Files\Source", "*", SearchOption.AllDirectories))
                 {
                     session.Enqueue(Encoding.UTF8.GetBytes(file.Replace(@"D:\Files\Source\", @"http://localhost:9001/file/Source/")));
+                }
+
+                session.Flush();
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                new FilePuller(_fileStorePath,
+                     _filePuller_Interval, _filePuller_DownloadTimeout, _filePuller_RetryTimes, queue).Start();
+            }
+
+            Thread.Sleep(100000);
+        }
+
+        [TestMethod]
+        public void Enque_remote_files_and_download_multiThread()
+        {
+            var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueue"));
+            using (var session = queue.OpenSession())
+            {
+                //加入多个重复文件
+                //当文件开始下载时就已经创建了,其他线程下载同样文件时,会检测到已下载(比较UpdateTime)而跳过
+                for (int i = 0; i < 10; i++)
+                {
+                    //10m左右
+                    session.Enqueue(Encoding.UTF8.GetBytes(@"http://jx.taedu.gov.cn:83/Resource.Portal.Web/SubjectResource/DownloadById/7923654c-189c-454f-bc0f-58dac38d2f78"));
                 }
 
                 session.Flush();
