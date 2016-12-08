@@ -1,0 +1,86 @@
+﻿ 
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ServerInstall</title>
+    <style>
+        input {
+            width: 90% !important;
+        }
+    </style>
+
+    <link href="Contents/adminportal.css" rel="stylesheet" />
+    <link href="Contents/bootstrap.min.css" rel="stylesheet" />
+    <script src="Scripts/jquery-1.10.2.min.js"></script>
+ </head>
+<body>
+    <div class="divTitle">CDN安装向导
+    </div>
+    <table cellspacing="1" cellpadding="1" border="0" class="Table" style="width:98%;">
+        <tr class="tr">
+            <td class="tdleft">文件保存位置</td>
+            <td class="tdright">
+                <input id="input_FileStorePath" value="D:\Files" />
+            </td>
+        </tr>
+        <tr class="tr">
+            <td class="tdleft">下载列表Api</td>
+            <td class="tdright">
+                <input id="input_FileEnqueuer_SyncApi" value="http://111.17.215.232:96/OnlineStudy.Api/api/course/transingfilepath?lastTime={0}&schooId={1}" />
+            </td>
+        </tr>
+        <tr class="tr">
+            <td class="tdleft">下载列表参数</td>
+            <td class="tdright">
+                <input id="input_SyncApiParam" value="6B915392-B695-4026-9526-2F6DBCD7D7DE" />
+            </td>
+        </tr>
+        <tr class="tr">
+            <td class="tdleft">
+                <a id="submit" class="LinkBtn SaveBtn" style="cursor:pointer;">生成链接</a>
+                <a id="copy" class="LinkBtn LinkBtn" style="cursor:pointer;" onclick="$('#output_address').select();document.execCommand('copy')">复制链接</a>
+            </td>
+            <td class="tdright">
+                <input type="text" id="output_address" />
+            </td>
+        </tr>
+    </table>
+    <div>
+        <br />
+        <br />
+        <ul style="padding-left:100px;color:slategrey">
+            <li>
+                下载列表Api约定:{0}必须对应时间戳,之后可以再传若干个参数,逗号分隔,比如这里的[schooId]对应[6B915392-B695-4026-9526-2F6DBCD7D7DE]
+            </li>
+            <li>
+                以上填好后点击按钮生成链接,然后复制到服务器上的IE浏览器,会自动安装并运行服务
+            </li>
+            <li>
+                对于多台服务器的配置,生成不同的链接后分别安装即可(注意一台服务器只能安装一次)
+            </li>
+            <li>
+                如果以上配置有变动,在服务器上停止程序,然后用新的安装链接运行一次即可
+            </li>
+            <li>
+                其他配置的规则类似,请参考<a class="LinkBtn SaveBtn" href="ConfigList.html">完整配置列表</a>
+            </li>
+        </ul>
+        <br />
+        <br />
+
+    </div>
+</body>
+</html>
+<script type="text/javascript">
+        $('#submit').click(function () {
+            $('#output_address').val(window.location.href.replace('InstallGuide.html', 'CDN.ConsoleApp.application?'
+                + 'FileStorePath='
+                    + encodeURIComponent($('#input_FileStorePath').val())
+                + '&FileEnqueuer_SyncApi='
+                    + encodeURIComponent($('#input_FileEnqueuer_SyncApi').val())
+                + '&SyncApiParam='
+                    + $('#input_SyncApiParam').val()))
+        })
+</script>

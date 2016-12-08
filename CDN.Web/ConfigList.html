@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body><textarea style="width:100%;height:1024px;">
+    <add key="FileStorePath" value="D:\Files" />
+    <!--文件默认保存位置-->
+
+    <add key="UpdateInterval" value="600000" />
+    <!--系统更新检查周期-->
+    <!--******for file server******-->
+
+    <add key="FileServer_Enabled" value="true" />
+    <!--文件服务器是否启用-->
+
+    <add key="FileServer_Port" value="80" />
+    <!--文件服务器端口-->
+
+    <add key="FileServer_TypeFilter" value="" />
+    <!--类型过滤,暂未实现-->
+    <!--******for file enqueuer******-->
+
+    <add key="FileEnqueuer_Enabled" value="true" />
+    <!--下载列表拉取服务是否启用-->
+
+    <add key="FileEnqueuer_Interval" value="60000" />
+    <!--载列表拉取服务轮询周期-->
+
+    <add key="FileEnqueuer_SyncApi" value="http://111.17.215.232:96/OnlineStudy.Api/api/course/transingfilepath?lastTime={0}&amp;schooId={1}" />
+    <!--下载列表请求地址,约定:{0}必须对应时间戳,之后可以再传若干个参数,根据发布时的url决定,格式为SyncApiParam=a,b,c(对应这里的{1},{2},{3})-->
+
+    <add key="FileEnqueuer_TypeFilter" value="" />
+    <!--类型过滤,暂未实现-->
+    <!--******for file puller******-->
+
+    <add key="FilePuller_Enabled" value="true" />
+    <!--下载器是否启用-->
+
+    <add key="FilePuller_DownloadThreadCount" value="5" />
+    <!--下载器并发线程数-->
+
+    <add key="FilePuller_Interval" value="60000" />
+    <!--下载器轮询周期-->
+
+    <add key="FilePuller_DownloadTimeout" value="1800000" />
+    <!--下载超时时间 30min-->
+
+    <add key="FilePuller_RetryTimes" value="1" />
+    <!--下载失败重试次数-->
+</textarea>
+</body>
+</html>

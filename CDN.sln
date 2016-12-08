@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDN.ConsoleApp", "CDN.Conso
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDN.Test.Standalone", "CDN.Test.Standalone\CDN.Test.Standalone.csproj", "{163CF72C-8FD3-4FCE-911F-560B8730A2C5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CDN.Web", "CDN.Web\CDN.Web.csproj", "{A0F55F66-BD51-4208-8E28-D6CD40890302}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{163CF72C-8FD3-4FCE-911F-560B8730A2C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0F55F66-BD51-4208-8E28-D6CD40890302}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0F55F66-BD51-4208-8E28-D6CD40890302}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0F55F66-BD51-4208-8E28-D6CD40890302}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0F55F66-BD51-4208-8E28-D6CD40890302}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
