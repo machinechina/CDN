@@ -7,7 +7,6 @@ using System.Windows.Forms;
 using CDN.Infrastructure;
 using CDN.Workers;
 using DiskQueue;
-using SEOP.Framework.Config;
 using static CDN.Infrastructure.ApplicationHelper;
 
 namespace CDN.ConsoleApp
@@ -32,15 +31,21 @@ namespace CDN.ConsoleApp
                 String _fileStorePath = GetConfigFromDeployThenAppConfig<String>("FileStorePath");
 
                 Boolean _fileServer_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FileServer_Enabled");
+
                 int _fileServer_Port = GetConfigFromDeployThenAppConfig<int>("FileServer_Port");
 
                 Boolean _fileEnqueuer_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FileEnqueuer_Enabled");
+
                 Int32 _fileEnqueuer_Interval = GetConfigFromDeployThenAppConfig<Int32>("FileEnqueuer_Interval");
+
                 String _fileEnqueuer_SyncApi = GetConfigFromDeployThenAppConfig<String>("FileEnqueuer_SyncApi");
 
                 Boolean _filePuller_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FilePuller_Enabled");
+
                 Int32 _filePuller_DownloadTimeout = GetConfigFromDeployThenAppConfig<Int32>("FilePuller_DownloadTimeout");
+
                 Int32 _filePuller_Interval = GetConfigFromDeployThenAppConfig<Int32>("FilePuller_Interval");
+
                 Int32 _filePuller_RetryTimes = GetConfigFromDeployThenAppConfig<Int32>("FilePuller_RetryTimes");
 
                 Int32 _filePuller_DownloadThreadCount =
@@ -105,9 +110,6 @@ namespace CDN.ConsoleApp
                 }
             }
         }
-
-        private static void InitConfigs()
-        {
-        }
+ 
     }
 }
