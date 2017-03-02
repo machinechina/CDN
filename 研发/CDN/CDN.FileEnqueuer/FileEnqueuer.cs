@@ -30,7 +30,8 @@ namespace CDN.Workers
             HttpClient client = new HttpClient();
             String syncUrl = null;
             //TODO:构造函数传进来,不要耦合ClickOnce发布方式
-            var syncUrlParams = GetDeployQueryString("SyncApiParam");
+      
+            var syncUrlParams = GetConfigFromDeployThenAppConfig<String>("SyncApiParam");
             try
             {
                 //find file store path & get last sync time

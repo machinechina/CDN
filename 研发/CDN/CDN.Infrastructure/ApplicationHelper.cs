@@ -145,7 +145,7 @@ namespace CDN.Infrastructure
             }
         }
 
-        public static String GetDeployQueryString(String key)
+        private static String GetDeployQueryString(String key)
         {
             try
             {
