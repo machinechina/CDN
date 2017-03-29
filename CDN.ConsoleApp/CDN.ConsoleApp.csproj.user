@@ -1,13 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <PublishUrlHistory>\\192.168.99.152\C%24\Taixue\CDN\|\\192.168.99.152\C%24\Taixue\CDN.Test\|http://taixue.istudy.sh.cn/CDN.Setup.Test/</PublishUrlHistory>
+    <PublishUrlHistory>\\192.168.99.200\C%24\Taixue\CDN\|\\192.168.99.152\C%24\Taixue\CDN\|\\192.168.99.152\C%24\Taixue\CDN.Test\|http://taixue.istudy.sh.cn/CDN.Setup.Test/</PublishUrlHistory>
     <InstallUrlHistory>http://taixue.istudy.sh.cn/CDN.Setup/|http://taixue.istudy.sh.cn/CDN.Setup.Test/|http://taixue.istudy.sh.cn/CDN/</InstallUrlHistory>
     <SupportUrlHistory />
-    <UpdateUrlHistory>http://taixue.istudy.sh.cn/CDN.Setup.Test/|http://taixue.istudy.sh.cn/CDN.Setup/</UpdateUrlHistory>
+    <UpdateUrlHistory>http://taixue.istudy.sh.cn/CDN.Setup/|http://taixue.istudy.sh.cn/CDN.Setup.Test/</UpdateUrlHistory>
     <BootstrapperUrlHistory />
     <ErrorReportUrlHistory />
     <FallbackCulture>zh-CN</FallbackCulture>
     <VerifyUploadedFiles>false</VerifyUploadedFiles>
+  </PropertyGroup>
+  <PropertyGroup>
+    <EnableSecurityDebugging>false</EnableSecurityDebugging>
   </PropertyGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿ 
+﻿
 <!DOCTYPE html>
 
 <html>
@@ -14,9 +14,10 @@
     <link href="Contents/adminportal.css" rel="stylesheet" />
     <link href="Contents/bootstrap.min.css" rel="stylesheet" />
     <script src="Scripts/jquery-1.10.2.min.js"></script>
- </head>
+</head>
 <body>
-    <div class="divTitle">CDN安装向导
+    <div class="divTitle">
+        CDN安装向导
     </div>
     <table cellspacing="1" cellpadding="1" border="0" class="Table" style="width:98%;">
         <tr class="tr">
@@ -28,13 +29,14 @@
         <tr class="tr">
             <td class="tdleft">下载列表Api</td>
             <td class="tdright">
-                <input id="input_FileEnqueuer_SyncApi" value="http://jxts.taedu.gov.cn:96/OnlineStudy.Api/api/course/transingfilepath?lastTime={0}&schooId={1}" />
+                <input id="input_FileEnqueuer_SyncApi" value="" placeholder="例:http://jxts.taedu.gov.cn:96/OnlineStudy.Api/api/course/transingfilepath?lastTime={0}&schooId={1}" />
+
             </td>
         </tr>
         <tr class="tr">
             <td class="tdleft">下载列表参数</td>
             <td class="tdright">
-                <input id="input_SyncApiParam" value="6B915392-B695-4026-9526-2F6DBCD7D7DE" />
+                <input id="input_SyncApiParam" placeholder="对应上面的第二个参数,例:6B915392-B695-4026-9526-2F6DBCD7D7DE" value="" />
             </td>
         </tr>
         <tr class="tr">
@@ -51,8 +53,10 @@
         <br />
         <br />
         <ul style="padding-left:100px;color:slategrey">
+
+            <li><h3>说明:</h3></li>
             <li>
-                下载列表Api约定:{0}必须对应时间戳,之后可以再传若干个参数,逗号分隔,比如这里的[schooId]对应[6B915392-B695-4026-9526-2F6DBCD7D7DE]
+                下载列表Api约定:{0}必须对应时间戳,之后可以再传若干个参数,逗号分隔,比如示例的[schooId]对应[6B915392-B695-4026-9526-2F6DBCD7D7DE]
             </li>
             <li>
                 以上填好后点击按钮生成链接,然后复制到服务器上的IE浏览器,会自动安装并运行服务
@@ -66,6 +70,9 @@
             <li>
                 其他配置的规则类似,请参考<a class="LinkBtn SaveBtn" href="ConfigList.html">完整配置列表</a>
             </li>
+            <li>
+                使用方法:<div id="url"></div>
+            </li>
         </ul>
         <br />
         <br />
@@ -74,13 +81,17 @@
 </body>
 </html>
 <script type="text/javascript">
-        $('#submit').click(function () {
-            $('#output_address').val(window.location.href.replace('InstallGuide.html', 'CDN.ConsoleApp.application?'
-                + 'FileStorePath='
-                    + encodeURIComponent($('#input_FileStorePath').val())
-                + '&FileEnqueuer_SyncApi='
-                    + encodeURIComponent($('#input_FileEnqueuer_SyncApi').val())
-                + '&SyncApiParam='
-                    + $('#input_SyncApiParam').val()))
-        })
+    $(function () {
+        $('#url').text(window.location.href.replace('CDN.Setup/InstallGuide.html', 'CDN/redirect?originalurl=[文件原始地址]'));
+    });
+
+    $('#submit').click(function () {
+        $('#output_address').val(window.location.href.replace('InstallGuide.html', 'CDN.ConsoleApp.application?'
+            + 'FileStorePath='
+            + encodeURIComponent($('#input_FileStorePath').val())
+            + '&FileEnqueuer_SyncApi='
+            + encodeURIComponent($('#input_FileEnqueuer_SyncApi').val())
+            + '&SyncApiParam='
+            + $('#input_SyncApiParam').val()))
+    })
 </script>

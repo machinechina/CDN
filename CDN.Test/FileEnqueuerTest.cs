@@ -17,7 +17,7 @@ namespace CDN.Test
     public class FileEnqueuerTest
     {
         [TestMethod]
-        public void enque_files_for_pending_download()
+        public void Enque_files_for_pending_download()
         {
             var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueueTest"));
             using (var session = queue.OpenSession())

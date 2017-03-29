@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -18,10 +19,16 @@ namespace CDN.Infrastructure
             lastModified = DateTime.Now;
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(url);
+                var request = ( HttpWebRequest )WebRequest.Create(url);
                 request.Method = "HEAD";
                 request.Timeout = 5000;
-                response = (HttpWebResponse)request.GetResponse();
+                //有些server对于没有UA的请求会500(多数是他们验证UA直接抛异常了)
+                request.UserAgent =
+                    "Mozilla/5.0 (Windows NT 6.3; Win64; x64) " +
+                    "AppleWebKit/537.36 (KHTML, like Gecko) " +
+                    "Chrome/56.0.2924.87 Safari/537.36";
+
+                response = ( HttpWebResponse )request.GetResponse();
                 try
                 {
                     //服务方如果手动设置,应该转成GMT时间
@@ -31,10 +38,20 @@ namespace CDN.Infrastructure
                 catch { }
                 try
                 {
-                    fileName = Uri.UnescapeDataString(response.Headers["Content-Disposition"].Replace("attachment; filename=", String.Empty).Replace("\"", String.Empty));
+                    //从response header里面尝试寻找文件名
+                    //一般有attachment和inline两种形式
+                    fileName =
+                        Uri.UnescapeDataString(response
+                        .Headers["Content-Disposition"]
+                        //.Replace("attachment; filename=", String.Empty)
+                        //.Replace("inline; filename=", String.Empty)
+                        .Split(new string[] { "filename=" },
+                             StringSplitOptions.RemoveEmptyEntries)[1]
+                        .Replace("\"", String.Empty));
                 }
                 catch
                 {
+                    //如果response header找不到就从链接尝试获取
                     fileName = Path.GetFileName(url);
                 }
             }

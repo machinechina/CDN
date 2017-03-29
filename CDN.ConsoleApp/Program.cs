@@ -18,6 +18,7 @@ namespace CDN.ConsoleApp
         private static void Main(string[] args)
         {
             List<IWorker> wokers = new List<IWorker>();
+            PersistentQueue queue = null;
             var exitForUpdating = false;
 
             try
@@ -55,7 +56,7 @@ namespace CDN.ConsoleApp
 
                 #endregion Get Configs From url or app.config
 
-                var queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueue"));
+                queue = new PersistentQueue(Path.Combine(_fileStorePath, "_FileQueue"));
 
                 if (_fileEnqueuer_Enabled)
                 {
@@ -102,6 +103,7 @@ namespace CDN.ConsoleApp
             {
                 //Clean
                 Parallel.ForEach(wokers, w => w.Stop());
+                queue?.Dispose();
                 mutex.Close();
 
                 if (exitForUpdating)
@@ -110,6 +112,6 @@ namespace CDN.ConsoleApp
                 }
             }
         }
- 
+
     }
 }
