@@ -50,8 +50,9 @@ namespace CDN.Workers
                             {
                                 try
                                 {
-                                    using (var webClient = new TimeoutWebClient(_downloadTimeout))
+                                    using ( var webClient = new TimeoutWebClient(_downloadTimeout))
                                         webClient.DownloadFile(url, filePathName);
+
                                     //使文件修改时间和服务器一致,以比较是否更新
                                     File.SetLastWriteTime(filePathName, lastModified);
                                 }
