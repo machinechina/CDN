@@ -72,7 +72,8 @@ namespace CDN.ConsoleApp
                     for (int i = 0; i < _filePuller_DownloadThreadCount; i++)
                     {
                         IWorker filePuller = new FilePuller(_fileStorePath,
-                         _filePuller_Interval, _filePuller_DownloadTimeout, _filePuller_RetryTimes, queue);
+                         _filePuller_Interval, _filePuller_DownloadTimeout, 
+                         _filePuller_RetryTimes, queue);
                         filePuller.Start();
                         wokers.Add(filePuller);
                         Info($"FilePuller {i} Started");
