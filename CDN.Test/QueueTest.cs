@@ -14,7 +14,7 @@ namespace CDN.Test
     [TestClass]
     public class QueueTest
     {
-        private readonly String _fileStorePath = Configuration.GetAppConfig("FileStorePath");
+        private readonly string _fileStorePath = Configuration.GetAppConfig("FileStorePath");
 
         [TestMethod]
         public void Enqueue_dequeue_same_time()

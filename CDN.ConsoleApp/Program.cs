@@ -29,7 +29,7 @@ namespace CDN.ConsoleApp
 
                 #region Get Configs From url or app.config
 
-                String _fileStorePath = GetConfigFromDeployThenAppConfig<String>("FileStorePath");
+                string _fileStorePath = GetConfigFromDeployThenAppConfig<string>("FileStorePath");
 
                 Boolean _fileServer_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FileServer_Enabled");
 
@@ -39,7 +39,7 @@ namespace CDN.ConsoleApp
 
                 Int32 _fileEnqueuer_Interval = GetConfigFromDeployThenAppConfig<Int32>("FileEnqueuer_Interval");
 
-                String _fileEnqueuer_SyncApi = GetConfigFromDeployThenAppConfig<String>("FileEnqueuer_SyncApi");
+                string _fileEnqueuer_SyncApi = GetConfigFromDeployThenAppConfig<string>("FileEnqueuer_SyncApi");
 
                 Boolean _filePuller_Enabled = GetConfigFromDeployThenAppConfig<Boolean>("FilePuller_Enabled");
 

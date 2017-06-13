@@ -12,7 +12,7 @@ namespace CDN.Infrastructure
 {
     public static class UrlHelper
     {
-        public static void GetHeaderFromUrl(String url, out String fileName, out DateTime lastModified)
+        public static void GetHeaderFromUrl(string url, out string fileName, out DateTime lastModified)
         {
             HttpWebResponse response = null;
             fileName = "";
@@ -61,7 +61,7 @@ namespace CDN.Infrastructure
             }
         }
 
-        public static String GetPhysicalPathByOriginalUrl(String originalUrl, String rootPath, String fileName = "")
+        public static string GetPhysicalPathByOriginalUrl(string originalUrl, string rootPath, string fileName = "")
         {
             var uri = new Uri(originalUrl);
             var filePath = Path.Combine(rootPath, uri.Host, Path.Combine(Uri.UnescapeDataString(uri.AbsolutePath).Split('/')));
@@ -77,7 +77,7 @@ namespace CDN.Infrastructure
 
         }
 
-        public static String GetNewUrlFromOriginalUrl(String originalUrl, String rootPath)
+        public static string GetNewUrlFromOriginalUrl(string originalUrl, string rootPath)
         {
             var physicalPath = GetPhysicalPathByOriginalUrl(originalUrl, rootPath);
             var physicalFilePath = Directory.GetFiles(physicalPath).First();

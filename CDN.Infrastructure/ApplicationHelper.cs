@@ -85,17 +85,17 @@ namespace CDN.Infrastructure
             }
         }
 
-        public static void Info(String msg)
+        public static void Info(string msg)
         {
             Console.WriteLine($"{DateTime.Now.ToString()} -- {msg}");
         }
 
-        public static void Log(Exception ex, String msg = "")
+        public static void Log(Exception ex, string msg = "")
         {
             Log(msg + ex.ToString());
         }
 
-        public static void Log(String msg)
+        public static void Log(string msg)
         {
             try
             {
@@ -106,7 +106,7 @@ namespace CDN.Infrastructure
             }
         }
 
-        public static String Version
+        public static string Version
         {
             get
             {
@@ -123,11 +123,11 @@ namespace CDN.Infrastructure
         /// 并在需要的时候用GetDeployQueryString获取
         /// </summary>
         /// <returns></returns>
-        private static IDictionary<String, String> _deployQuerys;
+        private static IDictionary<string, string> _deployQuerys;
 
-        private static String _localStorePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "_deployQuerys");
+        private static string _localStorePath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "_deployQuerys");
 
-        public static void InitDeployQueryString(params String[] requiredKeys)
+        public static void InitDeployQueryString(params string[] requiredKeys)
         {
             if (ApplicationDeployment.IsNetworkDeployed)//只有网络部署会用到Url Params
             {
@@ -145,7 +145,7 @@ namespace CDN.Infrastructure
             }
         }
 
-        private static String GetDeployQueryString(String key)
+        private static string GetDeployQueryString(string key)
         {
             try
             {
@@ -157,7 +157,7 @@ namespace CDN.Infrastructure
                 else
                 {
                     //from local store
-                    var valueFromLocal = File.ReadAllText(_localStorePath).ToJsonObject<Dictionary<String, String>>()[key];
+                    var valueFromLocal = File.ReadAllText(_localStorePath).ToJsonObject<Dictionary<string, string>>()[key];
                     _deployQuerys.Add(key, valueFromLocal);
                     return valueFromLocal;
                 }
@@ -168,7 +168,7 @@ namespace CDN.Infrastructure
             }
         }
 
-        public static T GetConfigFromDeployThenAppConfig<T>(String key)
+        public static T GetConfigFromDeployThenAppConfig<T>(string key)
         {
             try
             {

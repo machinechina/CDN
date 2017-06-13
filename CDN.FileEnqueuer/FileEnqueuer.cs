@@ -13,11 +13,11 @@ namespace CDN.Workers
 {
     public class FileEnqueuer : Worker
     {
-        private String _fileStorePath { get; }
-        private String _syncApi { get; }
+        private string _fileStorePath { get; }
+        private string _syncApi { get; }
         private IPersistentQueue _queue { get; }
         
-        public FileEnqueuer(String fileStorePath, String syncApi, int interval, IPersistentQueue queue) : base(interval)
+        public FileEnqueuer(string fileStorePath, string syncApi, int interval, IPersistentQueue queue) : base(interval)
         {
             _fileStorePath = fileStorePath;
             _syncApi = syncApi;
@@ -28,16 +28,16 @@ namespace CDN.Workers
         {
             Info("Begin searching file list...");
             HttpClient client = new HttpClient();
-            String syncUrl = null;
+            string syncUrl = null;
             //TODO:构造函数传进来,不要耦合ClickOnce发布方式
       
-            var syncUrlParams = GetConfigFromDeployThenAppConfig<String>("SyncApiParam");
+            var syncUrlParams = GetConfigFromDeployThenAppConfig<string>("SyncApiParam");
             try
             {
                 //find file store path & get last sync time
                 //pass extra params from DEPLOY URL
                 var lastSyncTime = File.GetLastWriteTime(Path.Combine(_fileStorePath, "_SyncStamp")).ToString();
-                syncUrl = String.Format(_syncApi, new[] { lastSyncTime }.Concat(syncUrlParams.Split(new String[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToArray());
+                syncUrl = String.Format(_syncApi, new[] { lastSyncTime }.Concat(syncUrlParams.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries)).ToArray());
 
 
                 //call api to get file list
