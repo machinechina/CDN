@@ -15,7 +15,7 @@ namespace CDN.Workers
     {
         int _port { get; }
 
-        public FileServer(int port, String fileStorePath, IPersistentQueue queue) : base(-1)
+        public FileServer(int port, string fileStorePath, IPersistentQueue queue) : base(-1)
         {
             _port = port;
             Startup._fileStorePath = fileStorePath;

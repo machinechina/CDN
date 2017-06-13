@@ -17,7 +17,7 @@ namespace CDN.Workers
 {
     internal class Startup
     {
-        public static String _fileStorePath { get; set; }
+        public static string _fileStorePath { get; set; }
 
         public void Configuration(IAppBuilder app)
         {
@@ -46,7 +46,7 @@ namespace CDN.Workers
 
     internal class RedirectMiddleware
     {
-        public static String _fileStorePath { get; set; }
+        public static string _fileStorePath { get; set; }
         public static IPersistentQueue _queue { get; set; }
 
         private readonly AppFunc next;
@@ -88,7 +88,7 @@ namespace CDN.Workers
 
     public class FileServerApiController : ApiController
     {
-        public static String _fileStorePath { get; set; }
+        public static string _fileStorePath { get; set; }
         public static int _port { get; set; }
 
         [HttpGet]

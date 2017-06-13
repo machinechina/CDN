@@ -11,12 +11,12 @@ namespace CDN.Workers
 {
     public class FilePuller : Worker
     {
-        private String _fileStorePath { get; }
+        private string _fileStorePath { get; }
         private int _downloadTimeout { get; }
         private int _maxRetryTimes { get; }
         private IPersistentQueue _queue { get; }
 
-        public FilePuller(String fileStorePath, int interval, int downloadTimeout, int retryTimes, IPersistentQueue queue) : base(interval)
+        public FilePuller(string fileStorePath, int interval, int downloadTimeout, int retryTimes, IPersistentQueue queue) : base(interval)
         {
             _fileStorePath = fileStorePath;
             _downloadTimeout = downloadTimeout;
