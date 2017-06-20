@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using CDN.Infrastructure;
 using DiskQueue;
 using Microsoft.Owin;
@@ -13,7 +14,6 @@ using Microsoft.Owin.StaticFiles;
 using Owin;
 using static CDN.Infrastructure.UrlHelper;
 using AppFunc = System.Func<System.Collections.Generic.IDictionary<string, object>, System.Threading.Tasks.Task>;
-
 namespace CDN.Workers
 {
     internal class Startup
@@ -41,6 +41,9 @@ namespace CDN.Workers
                 routeTemplate: "api/{action}",
                 defaults: new { controller = "FileServerApi" }
             );
+            //下面两句支持CORS
+            config.EnableCors(new EnableCorsAttribute("*", "*", "GET, POST, OPTIONS, PUT, DELETE"));
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
         }
     }
@@ -106,12 +109,12 @@ namespace CDN.Workers
         }
 
         [HttpGet]
-        public object GetConfig(string configKey="")
+        public object GetConfig(string configKey = "")
         {
             var apiResult = new
             {
                 res_code = 0,
-                Result =  ApplicationHelper.GetConfigFromDeployThenAppConfig<string>(configKey)
+                Result = ApplicationHelper.GetConfigFromDeployThenAppConfig<string>(configKey)
             };
 
             return Json(apiResult);
