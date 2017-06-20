@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using CDN.Infrastructure;
 using DiskQueue;
 using Microsoft.Owin;
 using Microsoft.Owin.FileSystems;
@@ -92,7 +93,7 @@ namespace CDN.Workers
         public static int _port { get; set; }
 
         [HttpGet]
-        public Object RequestAllFiles()
+        public object GetAllFiles()
         {
             var apiResult = new
             {
@@ -103,5 +104,18 @@ namespace CDN.Workers
 
             return Json(apiResult);
         }
+
+        [HttpGet]
+        public object GetConfig(string configKey="")
+        {
+            var apiResult = new
+            {
+                res_code = 0,
+                Result =  ApplicationHelper.GetConfigFromDeployThenAppConfig<string>(configKey)
+            };
+
+            return Json(apiResult);
+        }
+
     }
 }
