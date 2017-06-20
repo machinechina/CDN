@@ -66,7 +66,7 @@ namespace CDN.Infrastructure
             IsRunning = false;
         }
 
-        protected Boolean IsCancellationRequested
+        protected bool IsCancellationRequested
         {
             get
             {

@@ -42,7 +42,7 @@ namespace CDN.Test
     {
         public int startCounter = 0;
         public int stopCounter = 0;
-        public Object obj = new object();
+        public object obj = new object();
 
         public bool IsRunning { get; set; }
         public void Start()
