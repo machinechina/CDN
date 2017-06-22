@@ -6,9 +6,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Services.Description;
 using CDN.Infrastructure;
 using DiskQueue;
 using Microsoft.Owin;
+using Microsoft.Owin.Cors;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
 using Owin;
@@ -22,17 +24,25 @@ namespace CDN.Workers
 
         public void Configuration(IAppBuilder app)
         {
+            app.UseCors(CorsOptions.AllowAll);
+
             //redirect server
             app.Map("/redirect", subApp => subApp.Use<RedirectMiddleware>());
 
             //file server
-            var staticFilesOptions = new StaticFileOptions();
-            staticFilesOptions.ServeUnknownFileTypes = true;
-            staticFilesOptions.RequestPath = new PathString("/file");
             var physicalPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), _fileStorePath);
             Directory.CreateDirectory(physicalPath);
-            staticFilesOptions.FileSystem = new PhysicalFileSystem(physicalPath);
-            app.UseStaticFiles(staticFilesOptions);
+            app.UseStaticFiles(new StaticFileOptions()
+            {
+                ServeUnknownFileTypes = true,
+                RequestPath = new PathString("/file"),
+                FileSystem = new PhysicalFileSystem(physicalPath),
+                OnPrepareResponse = (context) =>
+                {
+                    context.OwinContext.Response.Headers["Access-Control-Allow-Methods"] = "GET,POST,PUT,DELETE,HEAD,OPTIONS";
+                    context.OwinContext.Response.Headers["Access-Control-Allow-Origin"] = "*";
+                }
+            });
 
             //api
             var config = new HttpConfiguration();
@@ -41,11 +51,11 @@ namespace CDN.Workers
                 routeTemplate: "api/{action}",
                 defaults: new { controller = "FileServerApi" }
             );
-            //下面两句支持CORS
             config.EnableCors(new EnableCorsAttribute("*", "*", "GET, POST, OPTIONS, PUT, DELETE"));
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+
             app.UseWebApi(config);
         }
+
     }
 
     internal class RedirectMiddleware
@@ -73,6 +83,7 @@ namespace CDN.Workers
             catch (Exception)
             {
                 context.Response.Redirect(Uri.EscapeUriString(originalUrl));
+
                 new Task(() =>
                 {
                     //Append to download queue
